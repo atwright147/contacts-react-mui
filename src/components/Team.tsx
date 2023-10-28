@@ -1,7 +1,10 @@
+import { Typography } from '@mui/material';
+
 export default function Root() {
   return (
     <>
-      <h1>Team</h1>
+      <Typography variant="h1">Team</Typography>
+      <Typography>This is the teams page</Typography>
     </>
   );
 }
