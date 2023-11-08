@@ -1,14 +1,17 @@
 import { FC } from 'react';
 import { Drawer, Link, styled } from '@mui/material'
 import { NavLink as RouterNavLink } from 'react-router-dom';
+import { useNavStore } from '../stores/nav.store';
 
 interface Props {
   drawerWidth: number;
 }
 
 export const Nav: FC<Props> = ({ drawerWidth }): JSX.Element => {
+  const { open } = useNavStore();
+
   return (
-    <Drawer variant="permanent" PaperProps={{ sx: { width: drawerWidth } }}>
+    <Drawer variant="permanent" PaperProps={{ sx: { width: drawerWidth } }} open={false}>
       <StyledNav>
         <StyledLink component={RouterNavLink} to="/">Home</StyledLink>
         <StyledLink component={RouterNavLink} to="/team">Team</StyledLink>
