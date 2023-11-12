@@ -14,21 +14,44 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css'
 
-import Root from './components/Root.tsx';
-import Team from './components/Team.tsx';
-import ErrorPage from './components/ErrorPage.tsx';
+import { Root } from './routes/Root.tsx';
+import { Home } from './routes/Home.tsx';
+import { ErrorPage } from './routes/ErrorPage.tsx';
+import { Messages } from './routes/Messages.tsx';
+import { Calendar } from './routes/Calendar.tsx';
+import { Calls } from './routes/Calls.tsx';
+import { Contacts } from './routes/Contacts.tsx';
+import { Settings } from './routes/Settings.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    // loader: rootLoader,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "team",
-        element: <Team />,
-        // loader: teamLoader,
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/messages",
+        element: <Messages />,
+      },
+      {
+        path: "/calls",
+        element: <Calls />,
+      },
+      {
+        path: "/contacts",
+        element: <Contacts />,
+      },
+      {
+        path: "/calendar",
+        element: <Calendar />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
       },
     ],
   },
