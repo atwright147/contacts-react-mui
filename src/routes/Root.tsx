@@ -25,6 +25,8 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import GroupIcon from '@mui/icons-material/Group';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
@@ -143,6 +145,8 @@ export function Root(): JSX.Element {
     setOpen(false);
   };
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <Box sx={{ display: 'flex', height: '100%' }}>
       <CssBaseline />
@@ -219,6 +223,45 @@ export function Root(): JSX.Element {
               </Link>
             </ListItem>
           ))}
+
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <Link
+              component={RouterNavLink}
+              to=""
+              onClick={(event) => {
+                event.preventDefault();
+                setIsLoggedIn(!isLoggedIn);
+              }}
+              // to={isLoggedIn ? '/api/auth/signout' : '/api/auth/signin'}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                alignItems: 'center',
+                px: 2.5,
+                display: 'flex',
+                textDecoration: 'none',
+                color: 'inherit',
+                '&:hover': {
+                  textDecoration: 'underline',
+                  color: 'primary.main'
+                },
+                '.MuiListItemIcon-root': {
+                  color: 'primary.main'
+                }
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                {isLoggedIn ? <LockOpenIcon /> : <LockIcon />}
+              </ListItemIcon>
+            </Link>
+          </ListItem>
+
         </List>
       </Drawer>
 
