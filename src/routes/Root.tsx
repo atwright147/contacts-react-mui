@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import {
-  Link as RouterLink,
+  NavLink as RouterNavLink,
   Outlet,
 } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -55,6 +55,7 @@ const StyledDrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
+  backgroundColor: theme.palette.primary.main,
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -143,7 +144,7 @@ export function Root(): JSX.Element {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100%' }}>
       <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
@@ -165,7 +166,11 @@ export function Root(): JSX.Element {
         </Toolbar>
       </AppBar>
 
-      <Drawer variant='permanent' open={open}>
+      <Drawer variant='permanent' open={open} sx={{
+        '& .MuiDrawer-paper': {
+          borderColor: theme.palette.primary.main
+        }
+      }}>
         <StyledDrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? (
@@ -182,12 +187,23 @@ export function Root(): JSX.Element {
           {links.map((link) => (
             <ListItem key={link.text} disablePadding sx={{ display: 'block' }}>
               <Link
-                component={RouterLink}
+                component={RouterNavLink}
                 to={link.path}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
+                  alignItems: 'center',
                   px: 2.5,
+                  display: 'flex',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                    color: 'primary.main'
+                  },
+                  '.MuiListItemIcon-root': {
+                    color: 'primary.main'
+                  }
                 }}
               >
                 <ListItemIcon
@@ -206,8 +222,7 @@ export function Root(): JSX.Element {
         </List>
       </Drawer>
 
-      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-        <StyledDrawerHeader />
+      <Box component='main' sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         <Outlet />
       </Box>
     </Box>
