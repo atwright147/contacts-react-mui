@@ -3,6 +3,7 @@ import ForumIcon from '@mui/icons-material/Forum';
 import PhoneIcon from '@mui/icons-material/Phone';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { ButtonMenu } from './ButtonMenu';
 
 import styles from './ButtonBar.module.scss';
 
@@ -22,9 +23,9 @@ export const ButtonBar = (): JSX.Element => {
         <ShareIcon />
       </Button>
 
-      <Button type="button">
+      <ButtonMenu>
         <MoreHorizIcon />
-      </Button>
+      </ButtonMenu>
     </div>
   );
 }
