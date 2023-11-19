@@ -1,16 +1,19 @@
-import { Typography } from '@mui/material';
-import { useContacts } from '../queries/contacts.query';
+import { Box, Grid, Stack, Typography } from '@mui/material';
+import { ContactsList } from '../components/ContactsList';
+import { ContactDetail } from '../components/ContactDetail';
 
 export function Contacts() {
-  const { data, isLoading, isError } = useContacts();
-
   return (
-    <>
+    <Stack>
       <Typography variant="h1">Contacts</Typography>
-      <Typography>Contacts route works!</Typography>
-      <pre>data: {JSON.stringify(data, null, 2)}</pre>
-      <pre>isLoading: {JSON.stringify(isLoading, null, 2)}</pre>
-      <pre>isError: {JSON.stringify(isError, null, 2)}</pre>
-    </>
+      <Grid container spacing={2}>
+        <Grid item lg={2} md={5} xs={12}>
+          <ContactsList />
+        </Grid>
+        <Grid item lg={10} md={7} xs={12}>
+          <ContactDetail />
+        </Grid>
+      </Grid>
+    </Stack>
   );
 }
