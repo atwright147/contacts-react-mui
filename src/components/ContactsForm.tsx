@@ -1,5 +1,6 @@
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, IconButton, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface FormValues {
   bio: string;
@@ -61,40 +62,47 @@ export function ContactsForm(): JSX.Element {
         {addressesFields.map((item, index) => (
           <Box component="fieldset" key={item.id}>
             <legend>Address {index + 1}</legend>
-            <Controller
-              render={({ field }) => <TextField label="Address 1" id={`addresses.${index}.address1`} {...field} />}
-              name={`addresses.${index}.address1`}
-              control={control}
-            />
-            <Controller
-              render={({ field }) => <TextField label="Address 2" id={`addresses.${index}.address2`} {...field} />}
-              name={`addresses.${index}.address2`}
-              control={control}
-            />
-            <Controller
-              render={({ field }) => <TextField label="Address 3" id={`addresses.${index}.address3`} {...field} />}
-              name={`addresses.${index}.address3`}
-              control={control}
-            />
-            <Controller
-              render={({ field }) => <TextField label="City" id={`addresses.${index}.city`} {...field} />}
-              name={`addresses.${index}.city`}
-              control={control}
-            />
-            <Controller
-              render={({ field }) => <TextField label="County" id={`addresses.${index}.county`} {...field} />}
-              name={`addresses.${index}.county`}
-              control={control}
-            />
-            <Controller
-              render={({ field }) => <TextField label="Post Code" id={`addresses.${index}.postCode`} {...field} />}
-              name={`addresses.${index}.postCode`}
-              control={control}
-            />
-
-            <Button type="button" onClick={() => {
-              addressesRemove(index);
-            }}>Delete Address</Button>
+            <Stack direction="row" spacing={2} useFlexGap>
+              <Stack direction="row" spacing={2} useFlexGap>
+                <Controller
+                  render={({ field }) => <TextField label="Address 1" id={`addresses.${index}.address1`} {...field} />}
+                  name={`addresses.${index}.address1`}
+                  control={control}
+                />
+                <Controller
+                  render={({ field }) => <TextField label="Address 2" id={`addresses.${index}.address2`} {...field} />}
+                  name={`addresses.${index}.address2`}
+                  control={control}
+                />
+                <Controller
+                  render={({ field }) => <TextField label="Address 3" id={`addresses.${index}.address3`} {...field} />}
+                  name={`addresses.${index}.address3`}
+                  control={control}
+                />
+                <Controller
+                  render={({ field }) => <TextField label="City" id={`addresses.${index}.city`} {...field} />}
+                  name={`addresses.${index}.city`}
+                  control={control}
+                />
+                <Controller
+                  render={({ field }) => <TextField label="County" id={`addresses.${index}.county`} {...field} />}
+                  name={`addresses.${index}.county`}
+                  control={control}
+                />
+                <Controller
+                  render={({ field }) => <TextField label="Post Code" id={`addresses.${index}.postCode`} {...field} />}
+                  name={`addresses.${index}.postCode`}
+                  control={control}
+                />
+              </Stack>
+              <Tooltip title="Delete Address">
+                <IconButton type="button" onClick={() => {
+                  addressesRemove(index);
+                }}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            </Stack>
           </Box>
         ))}
 
