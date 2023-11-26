@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, Typography } from '@mui/material';
 import { Addresses } from './details/Addresses/Addresses';
 import { Comments } from './details/Comments/Comments';
 import { Date } from './details/Date/Date';
@@ -9,6 +9,7 @@ import { getInitials } from '../helpers/getInitials/getInitials';
 import { Favourite } from './Favourite/Favourite';
 import { ButtonBar } from './details/ButtonBar';
 import { useModalsStore } from '../stores/modals.store';
+import { ContactsForm } from './ContactsForm';
 
 export const ContactDetail = () => {
   const selected = useContactsStore((store) => store.selected);
@@ -69,22 +70,16 @@ export const ContactDetail = () => {
         </details>
       </Stack>
 
-      <Dialog open={contactsEdit} onClose={() => setContactsEdit(false)}>
-        <DialogTitle>Edit</DialogTitle>
+      <Dialog fullWidth maxWidth="xl" open={contactsEdit} onClose={() => setContactsEdit(false)}>
+        <DialogTitle>Edit Contact</DialogTitle>
+
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            // variant="standard"
-          />
+          <ContactsForm />
         </DialogContent>
+
         <DialogActions>
           <Button onClick={() => setContactsEdit(false)}>Cancel</Button>
-          <Button onClick={() => setContactsEdit(false)}>Subscribe</Button>
+          <Button variant="contained" onClick={() => setContactsEdit(false)}>Save</Button>
         </DialogActions>
       </Dialog>
     </>
