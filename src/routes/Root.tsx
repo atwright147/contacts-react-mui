@@ -57,7 +57,9 @@ const StyledDrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.mode  === 'light'
+    ? theme.palette.primary.main
+    : 'rgba(255, 255, 255, 0.09)',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -177,11 +179,10 @@ export function Root(): JSX.Element {
       }}>
         <StyledDrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            {theme.direction === 'rtl'
+              ? <ChevronRightIcon />
+              : <ChevronLeftIcon />
+            }
           </IconButton>
         </StyledDrawerHeader>
 
