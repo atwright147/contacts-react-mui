@@ -70,10 +70,10 @@ export const ContactDetail = () => {
         </details>
       </Stack>
 
-      <Dialog fullWidth maxWidth="xl" open={contactsEdit} onClose={() => setContactsEdit(false)}>
-        <DialogTitle>Edit Contact</DialogTitle>
+      <Dialog fullWidth maxWidth="sm" open={contactsEdit} onClose={() => setContactsEdit(false)}>
+        <DialogTitle variant="h3">Edit Contact</DialogTitle>
 
-        <DialogContent>
+        <DialogContent sx={{ pt: 2, mt: 2 }}>
           <ContactsForm />
         </DialogContent>
 

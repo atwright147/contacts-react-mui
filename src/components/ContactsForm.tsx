@@ -1,6 +1,8 @@
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
-import { Box, Button, IconButton, Stack, TextField, Tooltip, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import styled from '@emotion/styled';
 
 interface FormValues {
   bio: string;
@@ -46,11 +48,14 @@ export function ContactsForm(): JSX.Element {
         name="bio"
         render={({ field: { onChange, value } }) => (
           <TextField
+            multiline
+            fullWidth
             id="bio"
             name="bio"
             label="Bio"
             value={value}
             onChange={onChange}
+            sx={{ mb: 3 }}
           />
         )}
         defaultValue=""
@@ -60,58 +65,61 @@ export function ContactsForm(): JSX.Element {
         <Typography variant="h6" component="h3">Addresses</Typography>
 
         {addressesFields.map((item, index) => (
-          <Box component="fieldset" key={item.id}>
-            <legend>Address {index + 1}</legend>
-            <Stack direction="row" spacing={2} useFlexGap>
-              <Stack direction="row" spacing={2} useFlexGap>
+          <Box sx={{ position: 'relative' }}>
+            <StyledFieldset key={item.id}>
+              <legend>Address {index + 1}</legend>
+              <Stack direction="column" spacing={2} useFlexGap>
                 <Controller
-                  render={({ field }) => <TextField label="Address 1" id={`addresses.${index}.address1`} {...field} />}
+                  render={({ field }) => <TextField label="Address 1" id={`addresses.${index}.address1`} {...field} fullWidth />}
                   name={`addresses.${index}.address1`}
                   control={control}
                 />
                 <Controller
-                  render={({ field }) => <TextField label="Address 2" id={`addresses.${index}.address2`} {...field} />}
+                  render={({ field }) => <TextField label="Address 2" id={`addresses.${index}.address2`} {...field} fullWidth />}
                   name={`addresses.${index}.address2`}
                   control={control}
                 />
                 <Controller
-                  render={({ field }) => <TextField label="Address 3" id={`addresses.${index}.address3`} {...field} />}
+                  render={({ field }) => <TextField label="Address 3" id={`addresses.${index}.address3`} {...field} fullWidth />}
                   name={`addresses.${index}.address3`}
                   control={control}
                 />
                 <Controller
-                  render={({ field }) => <TextField label="City" id={`addresses.${index}.city`} {...field} />}
+                  render={({ field }) => <TextField label="City" id={`addresses.${index}.city`} {...field} fullWidth />}
                   name={`addresses.${index}.city`}
                   control={control}
                 />
                 <Controller
-                  render={({ field }) => <TextField label="County" id={`addresses.${index}.county`} {...field} />}
+                  render={({ field }) => <TextField label="County" id={`addresses.${index}.county`} {...field} fullWidth />}
                   name={`addresses.${index}.county`}
                   control={control}
                 />
                 <Controller
-                  render={({ field }) => <TextField label="Post Code" id={`addresses.${index}.postCode`} {...field} />}
+                  render={({ field }) => <TextField label="Post Code" id={`addresses.${index}.postCode`} {...field} fullWidth />}
                   name={`addresses.${index}.postCode`}
                   control={control}
                 />
               </Stack>
-              <Tooltip title="Delete Address">
-                <IconButton type="button" onClick={() => {
-                  addressesRemove(index);
-                }}>
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            </Stack>
+
+              <StyledIconButton
+                type="button"
+                onClick={() => addressesRemove(index)}
+                sx={{  }}
+              >
+                <RemoveIcon />
+              </StyledIconButton>
+            </StyledFieldset>
           </Box>
         ))}
 
-        <Button
+        <StyledIconButton
           type="button"
           onClick={() => {
             addressesAppend({ address1: '', address2: '', address3: '', city: '', county: '', postCode: '' });
           }}
-        >Add Address</Button>
+        >
+          <AddIcon />
+        </StyledIconButton>
       </Box>
 
       <Box>
@@ -121,7 +129,7 @@ export function ContactsForm(): JSX.Element {
           <Box component="fieldset" key={item.id}>
             <legend>Comment {index + 1}</legend>
             <Controller
-              render={({ field }) => <TextField label="Comment" id={`comments.${index}.comment`} {...field} />}
+              render={({ field }) => <TextField label="Comment" id={`comments.${index}.comment`} {...field} fullWidth />}
               name={`comments.${index}.comment`}
               control={control}
             />
@@ -147,7 +155,7 @@ export function ContactsForm(): JSX.Element {
           <Box component="fieldset" key={item.id}>
             <legend>Emails {index + 1}</legend>
             <Controller
-              render={({ field }) => <TextField label="Email" id={`emails.${index}.email`} {...field} />}
+              render={({ field }) => <TextField label="Email" id={`emails.${index}.email`} {...field} fullWidth />}
               name={`emails.${index}.email`}
               control={control}
             />
@@ -168,3 +176,21 @@ export function ContactsForm(): JSX.Element {
     </form>
   );
 }
+
+const StyledIconButton = styled(IconButton)`
+  background-color: white;
+  border: 1px solid #c4c4c4;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(42%, -50%);
+
+  &:hover {
+    background-color: hsl(0, 0%, 95%);
+  }
+`
+
+// sx={{ p: 2.5, pr: 4, borderRadius: 1, borderColor: 'grey.50' }}
+const StyledFieldset = styled.fieldset`
+  border: 1px solid #c4c4c4;
+`
