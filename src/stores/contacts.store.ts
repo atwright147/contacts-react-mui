@@ -8,7 +8,7 @@ export interface State {
   empty: () => void;
 }
 
-export const useContactsStore = create<State>((set, get) => ({
+export const useContactsStore = create<State>((set) => ({
   selected: null,
   setSelected: (contact) => set({ selected: contact }),
   empty: () => set({ selected: null }),

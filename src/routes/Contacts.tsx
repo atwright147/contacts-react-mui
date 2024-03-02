@@ -1,6 +1,6 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
-import { ContactsList } from '../components/ContactsList';
+import { Grid, Stack, Typography } from '@mui/material';
 import { ContactDetail } from '../components/ContactDetail';
+import { ContactsList } from '../components/ContactsList';
 
 export function Contacts() {
   return (

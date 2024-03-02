@@ -1,7 +1,6 @@
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-import { Notification } from '../types/notifications.types';
 import { v4 as uuidv4 } from 'uuid';
+import { create } from 'zustand';
+import { Notification } from '../types/notifications.types';
 
 export interface State {
   notifications: Notification[];
