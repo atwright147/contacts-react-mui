@@ -7,7 +7,7 @@ interface Props {
 export const Emails: FC<Props> = ({ phones }): JSX.Element => {
   return (
     <div>
-      {phones.map((phone) => (
+      {phones?.map((phone) => (
         <p key={phone}>{phone}</p>
       ))}
     </div>

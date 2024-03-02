@@ -1,6 +1,6 @@
+import { Chip } from '@mui/material';
 import { FC } from 'react';
 import { Address } from '../../../types/address.type';
-import { Chip } from '@mui/material';
 import styles from '../details.module.scss';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export const Addresses: FC<Props> = ({ addresses }): JSX.Element => {
   return (
     <ul className={styles.list}>
-      {addresses.map((address) => {
+      {addresses?.map((address) => {
         const preparedAddress = [address.address1, address.address2, address.address3, address.city, address.county, address.postCode].join(
           ',\n',
         );

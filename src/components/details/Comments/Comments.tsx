@@ -9,7 +9,7 @@ interface Props {
 export const Comments: FC<Props> = ({ comments }): JSX.Element => {
   return (
     <ul className={styles.list}>
-      {comments.map((comment) => (
+      {comments?.map((comment) => (
         <li key={comment.id}>{comment.comment}</li>
       ))}
     </ul>

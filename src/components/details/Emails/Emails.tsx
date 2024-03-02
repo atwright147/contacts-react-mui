@@ -1,7 +1,7 @@
+import { Link } from '@mui/material';
 import { FC } from 'react';
 import { Email } from '../../../types/email.type';
 import styles from '../details.module.scss';
-import { Link } from '@mui/material';
 
 interface Props {
   emails: Email[];
@@ -10,7 +10,7 @@ interface Props {
 export const Emails: FC<Props> = ({ emails }): JSX.Element => {
   return (
     <ul className={styles.list}>
-      {emails.map((email) => (
+      {emails?.map((email) => (
         <li key={email.id}>
           <Link href={`mailto:${email.email}`}>{email.email}</Link>
         </li>
