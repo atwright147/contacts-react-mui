@@ -5,6 +5,4 @@ interface Props {
   string: string;
 }
 
-export const String: FC<Props> = ({ string }): JSX.Element => (
-  <Typography>{string}</Typography>
-);
+export const FormatString: FC<Props> = ({ string }): JSX.Element => <Typography>{string}</Typography>;

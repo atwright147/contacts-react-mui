@@ -1,12 +1,12 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Favourite } from './Favourite';
 
 // https://kasongoyo.medium.com/using-react-testing-library-to-test-if-component-contains-an-instance-of-another-component-c46a39c3611b
 vi.mock('react-icons/md', () => ({
-  MdStar: () => <div data-testid='starFilled'></div>,
-  MdStarOutline: () => <div data-testid='starOutline'></div>,
+  MdStar: () => <div data-testid="starFilled" />,
+  MdStarOutline: () => <div data-testid="starOutline" />,
 }));
 
 describe('Favourite component', () => {

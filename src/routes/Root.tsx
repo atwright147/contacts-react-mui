@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import {
-  NavLink as RouterNavLink,
-  Outlet,
-} from 'react-router-dom';
+import { NavLink as RouterNavLink, Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -57,9 +54,7 @@ const StyledDrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  backgroundColor: theme.palette.mode  === 'light'
-    ? theme.palette.primary.main
-    : 'rgba(255, 255, 255, 0.09)',
+  backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.09)',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -106,34 +101,34 @@ const links = [
   {
     text: 'Home',
     icon: <HomeIcon />,
-    path: '/'
+    path: '/',
   },
   {
     text: 'Messages',
     icon: <ForumIcon />,
-    path: '/messages'
+    path: '/messages',
   },
   {
     text: 'Calls',
     icon: <PhoneIcon />,
-    path: '/calls'
+    path: '/calls',
   },
   {
     text: 'Contacts',
     icon: <GroupIcon />,
-    path: '/contacts'
+    path: '/contacts',
   },
   {
     text: 'Calendar',
     icon: <EventNoteIcon />,
-    path: '/calendar'
+    path: '/calendar',
   },
   {
     text: 'Settings',
     icon: <SettingsIcon />,
-    path: '/settings'
+    path: '/settings',
   },
-]
+];
 
 export function Root(): JSX.Element {
   const theme = useTheme();
@@ -152,13 +147,13 @@ export function Root(): JSX.Element {
   return (
     <Box sx={{ display: 'flex', height: '100%' }}>
       <CssBaseline />
-      <AppBar position='fixed' open={open}>
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
-            color='inherit'
-            aria-label='open drawer'
+            color="inherit"
+            aria-label="open drawer"
             onClick={handleDrawerOpen}
-            edge='start'
+            edge="start"
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' }),
@@ -166,24 +161,23 @@ export function Root(): JSX.Element {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap component='div'>
+          <Typography variant="h6" noWrap component="div">
             Sidebar Collapse
           </Typography>
         </Toolbar>
       </AppBar>
 
-      <Drawer variant='permanent' open={open} sx={{
-        '& .MuiDrawer-paper': {
-          borderColor: theme.palette.primary.main
-        }
-      }}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{
+          '& .MuiDrawer-paper': {
+            borderColor: theme.palette.primary.main,
+          },
+        }}
+      >
         <StyledDrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl'
-              ? <ChevronRightIcon />
-              : <ChevronLeftIcon />
-            }
-          </IconButton>
+          <IconButton onClick={handleDrawerClose}>{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
         </StyledDrawerHeader>
 
         <Divider />
@@ -204,11 +198,11 @@ export function Root(): JSX.Element {
                   color: 'inherit',
                   '&:hover': {
                     textDecoration: 'underline',
-                    color: 'primary.main'
+                    color: 'primary.main',
                   },
                   '.MuiListItemIcon-root': {
-                    color: 'primary.main'
-                  }
+                    color: 'primary.main',
+                  },
                 }}
               >
                 <ListItemIcon
@@ -244,11 +238,11 @@ export function Root(): JSX.Element {
                 color: 'inherit',
                 '&:hover': {
                   textDecoration: 'underline',
-                  color: 'primary.main'
+                  color: 'primary.main',
                 },
                 '.MuiListItemIcon-root': {
-                  color: 'primary.main'
-                }
+                  color: 'primary.main',
+                },
               }}
             >
               <ListItemIcon
@@ -262,11 +256,10 @@ export function Root(): JSX.Element {
               </ListItemIcon>
             </Link>
           </ListItem>
-
         </List>
       </Drawer>
 
-      <Box component='main' sx={{ flexGrow: 1, p: 3, mt: 8 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         <Outlet />
       </Box>
     </Box>

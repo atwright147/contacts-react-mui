@@ -13,4 +13,4 @@ export const useContacts = () => {
     queryKey: ['contacts', 'all'],
     queryFn: getContacts,
   });
-}
+};

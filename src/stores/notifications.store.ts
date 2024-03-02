@@ -4,11 +4,11 @@ import { Notification } from '../types/notifications.types';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface State {
-  notifications: Notification[],
-  init: () => void,
-  add: (_notification: Omit<Notification, 'id'>) => void,
-  remove: (notification: Notification) => void,
-  empty: () => void,
+  notifications: Notification[];
+  init: () => void;
+  add: (_notification: Omit<Notification, 'id'>) => void;
+  remove: (notification: Notification) => void;
+  empty: () => void;
 }
 
 export const useNotificationsStore = create<State>((set, get) => ({
@@ -18,9 +18,9 @@ export const useNotificationsStore = create<State>((set, get) => ({
     const notification: Notification = {
       id: uuidv4(),
       ..._notification,
-    }
-    set({ notifications: [...get().notifications, notification] })
+    };
+    set({ notifications: [...get().notifications, notification] });
   },
-  remove: (notification) => set({ notifications: get().notifications.filter(n => n.id !== notification.id) }),
+  remove: (notification) => set({ notifications: get().notifications.filter((n) => n.id !== notification.id) }),
   empty: () => set({ notifications: [] }),
 }));

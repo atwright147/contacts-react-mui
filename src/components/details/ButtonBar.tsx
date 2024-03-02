@@ -28,5 +28,4 @@ export const ButtonBar = (): JSX.Element => {
       </ButtonMenu>
     </div>
   );
-}
-
+};

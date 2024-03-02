@@ -47,12 +47,12 @@ describe('useContactsStore', () => {
           comment: 'Lorem ipsum dolor sit amet',
           createdAt: '2022-01-01',
           updatedAt: '2022-01-01',
-        }
+        },
       ],
       isFavourite: 1,
       createdAt: '2022-01-01',
       updatedAt: '2022-01-01',
-    }
+    };
   });
 
   it('should initialy be null', () => {
@@ -81,5 +81,5 @@ describe('useContactsStore', () => {
       act(() => result.current.empty());
       expect(result.current.selected).toBe(null);
     });
-  })
+  });
 });

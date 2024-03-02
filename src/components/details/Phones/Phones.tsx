@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 interface Props {
-  phones: string[]
+  phones: string[];
 }
 
 export const Emails: FC<Props> = ({ phones }): JSX.Element => {
@@ -12,4 +12,4 @@ export const Emails: FC<Props> = ({ phones }): JSX.Element => {
       ))}
     </div>
   );
-}
+};

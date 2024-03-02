@@ -20,26 +20,14 @@ export function ContactsForm(): JSX.Element {
       emails: [{ email: '' }],
       addresses: [{ address1: '', address2: '', address3: '', city: '', county: '', postCode: '' }],
       comments: [{ comment: '' }],
-    }
+    },
   });
 
-  const {
-    fields: addressesFields,
-    append: addressesAppend,
-    remove: addressesRemove
-  } = useFieldArray({ control, name: "addresses" });
+  const { fields: addressesFields, append: addressesAppend, remove: addressesRemove } = useFieldArray({ control, name: 'addresses' });
 
-  const {
-    fields: commentsFields,
-    append: commentsAppend,
-    remove: commentsRemove
-  } = useFieldArray({ control, name: "comments" });
+  const { fields: commentsFields, append: commentsAppend, remove: commentsRemove } = useFieldArray({ control, name: 'comments' });
 
-  const {
-    fields: emailsFields,
-    append: emailsAppend,
-    remove: emailsRemove
-  } = useFieldArray({ control, name: "emails" });
+  const { fields: emailsFields, append: emailsAppend, remove: emailsRemove } = useFieldArray({ control, name: 'emails' });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -47,22 +35,15 @@ export function ContactsForm(): JSX.Element {
         control={control}
         name="bio"
         render={({ field: { onChange, value } }) => (
-          <TextField
-            multiline
-            fullWidth
-            id="bio"
-            name="bio"
-            label="Bio"
-            value={value}
-            onChange={onChange}
-            sx={{ mb: 3 }}
-          />
+          <TextField multiline fullWidth id="bio" name="bio" label="Bio" value={value} onChange={onChange} sx={{ mb: 3 }} />
         )}
         defaultValue=""
       />
 
       <Box>
-        <Typography variant="h6" component="h3">Addresses</Typography>
+        <Typography variant="h6" component="h3">
+          Addresses
+        </Typography>
 
         {addressesFields.map((item, index) => (
           <Box sx={{ position: 'relative' }}>
@@ -101,11 +82,7 @@ export function ContactsForm(): JSX.Element {
                 />
               </Stack>
 
-              <StyledIconButton
-                type="button"
-                onClick={() => addressesRemove(index)}
-                sx={{  }}
-              >
+              <StyledIconButton type="button" onClick={() => addressesRemove(index)} sx={{}}>
                 <RemoveIcon />
               </StyledIconButton>
             </StyledFieldset>
@@ -123,7 +100,9 @@ export function ContactsForm(): JSX.Element {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h3">Comments</Typography>
+        <Typography variant="h6" component="h3">
+          Comments
+        </Typography>
 
         {commentsFields.map((item, index) => (
           <Box component="fieldset" key={item.id}>
@@ -134,9 +113,14 @@ export function ContactsForm(): JSX.Element {
               control={control}
             />
 
-            <Button type="button" onClick={() => {
-              commentsRemove(index);
-            }}>Delete Comment</Button>
+            <Button
+              type="button"
+              onClick={() => {
+                commentsRemove(index);
+              }}
+            >
+              Delete Comment
+            </Button>
           </Box>
         ))}
 
@@ -145,11 +129,15 @@ export function ContactsForm(): JSX.Element {
           onClick={() => {
             commentsAppend({ comment: '' });
           }}
-        >Add Comment</Button>
+        >
+          Add Comment
+        </Button>
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h3">Emails</Typography>
+        <Typography variant="h6" component="h3">
+          Emails
+        </Typography>
 
         {emailsFields.map((item, index) => (
           <Box component="fieldset" key={item.id}>
@@ -160,9 +148,14 @@ export function ContactsForm(): JSX.Element {
               control={control}
             />
 
-            <Button type="button" onClick={() => {
-              emailsRemove(index);
-            }}>Delete Email</Button>
+            <Button
+              type="button"
+              onClick={() => {
+                emailsRemove(index);
+              }}
+            >
+              Delete Email
+            </Button>
           </Box>
         ))}
 
@@ -171,7 +164,9 @@ export function ContactsForm(): JSX.Element {
           onClick={() => {
             emailsAppend({ email: '' });
           }}
-        >Add Comment</Button>
+        >
+          Add Comment
+        </Button>
       </Box>
     </form>
   );
@@ -188,9 +183,9 @@ const StyledIconButton = styled(IconButton)`
   &:hover {
     background-color: hsl(0, 0%, 95%);
   }
-`
+`;
 
 // sx={{ p: 2.5, pr: 4, borderRadius: 1, borderColor: 'grey.50' }}
 const StyledFieldset = styled.fieldset`
   border: 1px solid #c4c4c4;
-`
+`;

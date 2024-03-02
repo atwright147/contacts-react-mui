@@ -26,5 +26,5 @@ export const theme = createTheme({
       fontSize: '1.25rem',
       fontWeight: 'normal',
     },
-  }
+  },
 });

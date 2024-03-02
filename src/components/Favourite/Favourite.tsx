@@ -8,8 +8,8 @@ interface Props {
 
 export const Favourite: FC<Props> = ({ isFavourite }) => {
   return (
-    <div className={styles.favourite} data-testid='favourite'>
+    <div className={styles.favourite} data-testid="favourite">
       {isFavourite ? <Star /> : <StarOutline />}
     </div>
   );
-}
+};

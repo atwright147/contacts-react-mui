@@ -5,6 +5,4 @@ interface Props {
   date: string;
 }
 
-export const Date: FC<Props> = ({ date }): JSX.Element => (
-  <time dateTime={date}>{isoToLocaleString(date)}</time>
-);
+export const FormatDate: FC<Props> = ({ date }): JSX.Element => <time dateTime={date}>{isoToLocaleString(date)}</time>;

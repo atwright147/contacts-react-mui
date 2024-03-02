@@ -33,16 +33,16 @@ export function ButtonMenu({ children }: Props): JSX.Element {
   const handleEdit = (): void => {
     setContactEdit(true);
     close();
-  }
+  };
 
   const handleDelete = (): void => {
     close();
-  }
+  };
 
   const handleToggleFavourites = (): void => {
     patchFavourite.mutate();
     close();
-  }
+  };
 
   return (
     <>

@@ -17,32 +17,32 @@ const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
       {
-        path: "/messages",
+        path: '/messages',
         element: <Messages />,
       },
       {
-        path: "/calls",
+        path: '/calls',
         element: <Calls />,
       },
       {
-        path: "/contacts",
+        path: '/contacts',
         element: <Contacts />,
       },
       {
-        path: "/calendar",
+        path: '/calendar',
         element: <Calendar />,
       },
       {
-        path: "/settings",
+        path: '/settings',
         element: <Settings />,
       },
     ],
@@ -64,11 +64,10 @@ export function App() {
 
   return (
     <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </ThemeProvider>
-
-  )
+      <CssBaseline />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
 }

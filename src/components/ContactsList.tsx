@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { List, ListItemAvatar, Avatar, ListItemText, Typography, Box, ListItemButton, ListItem, Stack } from '@mui/material'
+import { List, ListItemAvatar, Avatar, ListItemText, Typography, Box, ListItemButton, ListItem, Stack } from '@mui/material';
 import { useContacts } from '../queries/contacts.query';
 import { useContactsStore } from '../stores/contacts.store';
 import { Loading } from './Loading';
@@ -37,9 +37,7 @@ export const ContactsList = () => {
                       <Favourite isFavourite={!!contact.isFavourite} />
                     </Stack>
                   }
-                  secondary={
-                    <Typography variant="body2">{contact.jobTitle}</Typography>
-                  }
+                  secondary={<Typography variant="body2">{contact.jobTitle}</Typography>}
                 />
               </ListItemButton>
             </ListItem>
@@ -48,4 +46,4 @@ export const ContactsList = () => {
       </Box>
     </Suspense>
   );
-}
+};

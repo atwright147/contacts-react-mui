@@ -4,7 +4,7 @@ import styles from '../details.module.scss';
 import { Link } from '@mui/material';
 
 interface Props {
-  emails: Email[]
+  emails: Email[];
 }
 
 export const Emails: FC<Props> = ({ emails }): JSX.Element => {
@@ -17,4 +17,4 @@ export const Emails: FC<Props> = ({ emails }): JSX.Element => {
       ))}
     </ul>
   );
-}
+};

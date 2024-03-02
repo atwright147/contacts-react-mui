@@ -9,6 +9,6 @@ export enum NotificationType {
 
 export interface Notification {
   id: Uuid;
-  type: string,
-  body: string,
+  type: string;
+  body: string;
 }

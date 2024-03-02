@@ -1,15 +1,15 @@
 import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, Typography } from '@mui/material';
-import { Addresses } from './details/Addresses/Addresses';
-import { Comments } from './details/Comments/Comments';
-import { Date } from './details/Date/Date';
-import { Emails } from './details/Emails/Emails';
-import { String } from './details/String/String';
-import { useContactsStore } from "../stores/contacts.store";
 import { getInitials } from '../helpers/getInitials/getInitials';
-import { Favourite } from './Favourite/Favourite';
-import { ButtonBar } from './details/ButtonBar';
+import { useContactsStore } from '../stores/contacts.store';
 import { useModalsStore } from '../stores/modals.store';
 import { ContactsForm } from './ContactsForm';
+import { Favourite } from './Favourite/Favourite';
+import { Addresses } from './details/Addresses/Addresses';
+import { ButtonBar } from './details/ButtonBar';
+import { Comments } from './details/Comments/Comments';
+import { Emails } from './details/Emails/Emails';
+import { FormatDate } from './details/FormatDate/FormatDate';
+import { FormatString } from './details/FormatString/FormatString';
 
 export const ContactDetail = () => {
   const selected = useContactsStore((store) => store.selected);
@@ -33,33 +33,43 @@ export const ContactDetail = () => {
 
           <Stack>
             <Stack direction="row" spacing={1}>
-              <Typography variant="h3" component="h2">{selected.firstName} {selected.lastName}</Typography>
-              <Favourite isFavourite={!!selected.isFavourite}/>
+              <Typography variant="h3" component="h2">
+                {selected.firstName} {selected.lastName}
+              </Typography>
+              <Favourite isFavourite={!!selected.isFavourite} />
             </Stack>
-            <String string={selected.jobTitle} />
-            <Date date={selected.dateOfBirth} />
+            <FormatString string={selected.jobTitle} />
+            <FormatDate date={selected.dateOfBirth} />
             <ButtonBar />
           </Stack>
         </Stack>
 
         <Stack spacing={2}>
           <Box>
-            <Typography variant="h4" component="h3">Biography</Typography>
-            <String string={selected.bio} />
+            <Typography variant="h4" component="h3">
+              Biography
+            </Typography>
+            <FormatString string={selected.bio} />
           </Box>
 
           <Box>
-            <Typography variant="h4" component="h3">Emails</Typography>
+            <Typography variant="h4" component="h3">
+              Emails
+            </Typography>
             <Emails emails={selected.emails} />
           </Box>
 
           <Box>
-            <Typography variant="h4" component="h3">Addresses</Typography>
+            <Typography variant="h4" component="h3">
+              Addresses
+            </Typography>
             <Addresses addresses={selected.addresses} />
           </Box>
 
           <Box>
-            <Typography variant="h4" component="h3">Comments</Typography>
+            <Typography variant="h4" component="h3">
+              Comments
+            </Typography>
             <Comments comments={selected.comments} />
           </Box>
         </Stack>
@@ -79,9 +89,11 @@ export const ContactDetail = () => {
 
         <DialogActions>
           <Button onClick={() => setContactsEdit(false)}>Cancel</Button>
-          <Button variant="contained" onClick={() => setContactsEdit(false)}>Save</Button>
+          <Button variant="contained" onClick={() => setContactsEdit(false)}>
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
     </>
-  )
-}
+  );
+};
