@@ -1,9 +1,12 @@
-import { ReactNode, useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
-import ky from 'ky';
 import { useMutation } from '@tanstack/react-query';
-import { useModalsStore } from '../../stores/modals.store';
+import ky from 'ky';
+import { ReactNode, useState } from 'react';
+import { useContact } from '../../queries/contact.query';
+import { useContacts } from '../../queries/contacts.query';
+
 import { useContactsStore } from '../../stores/contacts.store';
+import { useModalsStore } from '../../stores/modals.store';
 
 interface Props {
   children?: ReactNode;
@@ -11,7 +14,9 @@ interface Props {
 
 export function ButtonMenu({ children }: Props): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const selected = useContactsStore((store) => store.selected);
+  const selectedId = useContactsStore((store) => store.selectedId);
+  const { data: selected, refetch: refetchSelectedContact } = useContact(selectedId as number);
+  const { refetch: refetchContacts } = useContacts();
   const open = !!anchorEl;
   const setContactEdit = useModalsStore((store) => store.setContactsEdit);
 
@@ -19,6 +24,10 @@ export function ButtonMenu({ children }: Props): JSX.Element {
     mutationFn: (): Promise<void> => {
       const action = selected?.isFavourite ? 'unfavourite' : 'favourite';
       return ky.patch(`http://localhost:3001/api/v1/contacts/${selected?.id}/${action}`).json();
+    },
+    onSuccess: () => {
+      refetchSelectedContact();
+      refetchContacts();
     },
   });
 

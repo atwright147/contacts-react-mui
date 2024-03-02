@@ -1,15 +1,13 @@
 import { create } from 'zustand';
-// import { devtools } from 'zustand/middleware';
-import { Contact } from '../types/contact.types';
 
 export interface State {
-  selected: Contact | null;
-  setSelected: (contact: Contact) => void;
-  empty: () => void;
+  selectedId: number | undefined;
+  setSelectedId: (id: number) => void;
+  deselect: () => void;
 }
 
-export const useContactsStore = create<State>((set) => ({
-  selected: null,
-  setSelected: (contact) => set({ selected: contact }),
-  empty: () => set({ selected: null }),
+export const useContactsStore = create<State>()((set) => ({
+  selectedId: undefined,
+  setSelectedId: (id) => set({ selectedId: id }),
+  deselect: () => set({ selectedId: undefined }),
 }));

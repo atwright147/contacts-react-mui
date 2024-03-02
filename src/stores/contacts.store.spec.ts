@@ -1,14 +1,14 @@
+import { act, renderHook } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
-import { useContactsStore } from './contacts.store';
 import { Contact } from '../types/contact.types';
+import { useContactsStore } from './contacts.store';
 
 describe('useContactsStore', () => {
   let mockContact: Contact;
 
   beforeEach(() => {
     const { result } = renderHook(() => useContactsStore());
-    act(() => result.current.empty());
+    act(() => result.current.deselect());
 
     mockContact = {
       id: 123,
@@ -58,28 +58,28 @@ describe('useContactsStore', () => {
   it('should initialy be null', () => {
     const { result } = renderHook(() => useContactsStore());
 
-    expect(result.current.selected).toBe(null);
+    expect(result.current.selectedId).toBeUndefined();
   });
 
   describe('setSelected()', () => {
     it('should set a selection', () => {
       const { result } = renderHook(() => useContactsStore());
-      act(() => result.current.setSelected(mockContact));
+      act(() => result.current.setSelectedId(mockContact.id));
 
-      expect(result.current.selected).toMatchObject(mockContact);
-      expect(result.current.selected?.id).toBe(123);
+      expect(result.current.selectedId).toBe(mockContact.id);
+      expect(result.current.selectedId).toBe(123);
     });
   });
 
-  describe('empty()', () => {
-    it('should empty the selection', () => {
+  describe('deselect()', () => {
+    it('should unset the selection', () => {
       const { result } = renderHook(() => useContactsStore());
 
-      act(() => result.current.setSelected(mockContact));
-      expect(result.current.selected).toMatchObject(mockContact);
+      act(() => result.current.setSelectedId(mockContact.id));
+      expect(result.current.selectedId).toBe(mockContact.id);
 
-      act(() => result.current.empty());
-      expect(result.current.selected).toBe(null);
+      act(() => result.current.deselect());
+      expect(result.current.selectedId).toBeUndefined();
     });
   });
 });

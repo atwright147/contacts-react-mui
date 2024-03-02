@@ -14,16 +14,12 @@ import { FormatDate } from './details/FormatDate/FormatDate';
 import { FormatString } from './details/FormatString/FormatString';
 
 export const ContactDetail = () => {
-  const selected = useContactsStore((store) => store.selected);
-  const { data: contact, isError, isLoading } = useContact(selected?.id as number);
+  const selectedId = useContactsStore((store) => store.selectedId);
+  const { data: contact, isError, isLoading } = useContact(selectedId as number);
   const contactsEdit = useModalsStore((store) => store.contactsEdit);
   const setContactsEdit = useModalsStore((store) => store.setContactsEdit);
 
-  console.info('contact', contact);
-  console.info('isLoading', isLoading);
-  console.info('isError', isError);
-
-  if (!selected) {
+  if (!selectedId) {
     return <Box>Please select a contact</Box>;
   }
 
@@ -37,11 +33,11 @@ export const ContactDetail = () => {
                 alt={getInitials(`${contact.firstName} ${contact.lastName}`)}
                 src={`http://localhost:3001/api/v1/avatar/${contact.id}`}
                 variant="rounded"
-                sx={{ height: 128, width: 128 }}
+                sx={{ height: 168, width: 168 }}
               />
 
-              <Stack>
-                <Stack direction="row" spacing={1}>
+              <Stack spacing={0.5}>
+                <Stack direction="row" spacing={3}>
                   <Typography variant="h3" component="h2">
                     {contact.firstName} {contact.lastName}
                   </Typography>
@@ -49,7 +45,7 @@ export const ContactDetail = () => {
                 </Stack>
                 <FormatString string={contact.jobTitle} />
                 <FormatDate date={contact.dateOfBirth} />
-                <ButtonBar />
+                <ButtonBar style={{ marginTop: '10px' }} />
               </Stack>
             </Stack>
 
@@ -82,11 +78,6 @@ export const ContactDetail = () => {
                 <Comments comments={contact.comments} />
               </Box>
             </Stack>
-
-            <details>
-              <summary>Details</summary>
-              {<pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(selected, null, 2)}</pre>}
-            </details>
           </Stack>
 
           <Dialog fullWidth maxWidth="sm" open={contactsEdit} onClose={() => setContactsEdit(false)}>

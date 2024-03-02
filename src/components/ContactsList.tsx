@@ -1,15 +1,16 @@
+import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography } from '@mui/material';
 import { Suspense } from 'react';
-import { List, ListItemAvatar, Avatar, ListItemText, Typography, Box, ListItemButton, ListItem, Stack } from '@mui/material';
+
+import { getInitials } from '../helpers/getInitials/getInitials';
 import { useContacts } from '../queries/contacts.query';
 import { useContactsStore } from '../stores/contacts.store';
-import { Loading } from './Loading';
-import { getInitials } from '../helpers/getInitials/getInitials';
 import { Favourite } from './Favourite/Favourite';
+import { Loading } from './Loading';
 
 export const ContactsList = () => {
   const { data: contacts } = useContacts();
-  const selected = useContactsStore((store) => store.selected);
-  const setSelected = useContactsStore((store) => store.setSelected);
+  const selectedId = useContactsStore((store) => store.selectedId);
+  const setSelectedId = useContactsStore((store) => store.setSelectedId);
 
   return (
     <Suspense fallback={<Loading />}>
@@ -19,9 +20,9 @@ export const ContactsList = () => {
             <ListItem key={contact.id}>
               <ListItemButton
                 alignItems="flex-start"
-                selected={selected?.id === contact.id}
+                selected={selectedId === contact.id}
                 component="button"
-                onClick={() => setSelected(contact)}
+                onClick={() => setSelectedId(contact.id)}
               >
                 <ListItemAvatar>
                   <Avatar
