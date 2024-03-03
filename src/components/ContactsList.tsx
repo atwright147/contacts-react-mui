@@ -33,7 +33,7 @@ export const ContactsList = () => {
                 </ListItemAvatar>
                 <ListItemText
                   primary={
-                    <Stack direction="row" spacing={1}>
+                    <Stack direction="row" spacing={1} justifyContent="space-between">
                       <Typography>{`${contact.firstName} ${contact.lastName}`}</Typography>
                       <Favourite isFavourite={!!contact.isFavourite} />
                     </Stack>
