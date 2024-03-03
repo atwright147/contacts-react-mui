@@ -4,7 +4,7 @@ import { Contact } from '../types/contact.types';
 const API_URL = 'http://localhost:3001';
 
 const getContacts = async () => {
-  const response = await fetch(`${API_URL}/api/v2/contacts`);
+  const response = await fetch(`${API_URL}/api/v1/contacts`);
   return response.json();
 };
 
