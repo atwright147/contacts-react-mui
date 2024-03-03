@@ -1,9 +1,10 @@
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography } from '@mui/material';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 
 import { getInitials } from '../helpers/getInitials/getInitials';
 import { useContacts } from '../queries/contacts.query';
 import { useContactsStore } from '../stores/contacts.store';
+import { Contact } from '../types/contact.types';
 import { Favourite } from './Favourite/Favourite';
 import { Loading } from './Loading';
 
@@ -12,11 +13,16 @@ export const ContactsList = () => {
   const selectedId = useContactsStore((store) => store.selectedId);
   const setSelectedId = useContactsStore((store) => store.setSelectedId);
 
+  const favourites = contacts?.filter((contact) => contact.isFavourite) ?? [];
+  const nonFavourites = contacts?.filter((contact) => !contact.isFavourite) ?? [];
+
+  const [contactsToDisplay, setContactsToDisplay] = useState<Contact[]>([...favourites, ...nonFavourites]);
+
   return (
     <Suspense fallback={<Loading />}>
       <Box>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.Box' }} dense>
-          {contacts?.map((contact) => (
+          {contactsToDisplay?.map((contact) => (
             <ListItem key={contact.id}>
               <ListItemButton
                 alignItems="flex-start"
