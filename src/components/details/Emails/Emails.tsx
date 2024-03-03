@@ -1,4 +1,4 @@
-import { Link } from '@mui/material';
+import { Chip, Link } from '@mui/material';
 import { FC } from 'react';
 import { Email } from '../../../types/email.type';
 import styles from '../details.module.scss';
@@ -13,6 +13,7 @@ export const Emails: FC<Props> = ({ emails }): JSX.Element => {
       {emails?.map((email) => (
         <li key={email.id}>
           <Link href={`mailto:${email.email}`}>{email.email}</Link>
+          {!!email.isPrimary && <Chip label="Primary" color="primary" />}
         </li>
       ))}
     </ul>
