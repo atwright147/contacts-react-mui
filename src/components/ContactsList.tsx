@@ -1,11 +1,9 @@
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography } from '@mui/material';
-import { Suspense } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { getInitials } from '../helpers/getInitials/getInitials';
 import { useContacts } from '../queries/contacts.query';
 import { Favourite } from './Favourite/Favourite';
-import { Loading } from './Loading';
 
 export const ContactsList = () => {
   const { id } = useParams();
@@ -17,7 +15,6 @@ export const ContactsList = () => {
   };
 
   return (
-    <Suspense fallback={<Loading />}>
       <Box>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.Box' }} dense>
           {contacts?.map((contact) => (
@@ -51,6 +48,5 @@ export const ContactsList = () => {
           ))}
         </List>
       </Box>
-    </Suspense>
   );
 };
