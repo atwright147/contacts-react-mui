@@ -9,11 +9,11 @@ interface Props {
 
 export const Emails: FC<Props> = ({ emails }): JSX.Element => {
   return (
-    <ul className={styles.list}>
+    <ul className={styles.unlistVertical}>
       {emails?.map((email) => (
         <li key={email.id}>
           <Link href={`mailto:${email.email}`}>{email.email}</Link>
-          {!!email.isPrimary && <Chip label="Primary" color="primary" />}
+          {!!email.isPrimary && <Chip label="Primary" color="primary" size="small" />}
         </li>
       ))}
     </ul>

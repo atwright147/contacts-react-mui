@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <Calls />,
       },
       {
-        path: '/contacts',
+        path: '/contacts/:id?',
         element: <Contacts />,
       },
       {
@@ -57,7 +57,8 @@ export function App() {
     () =>
       createTheme({
         palette: {
-          mode: prefersDarkMode ? 'dark' : 'light',
+          // mode: prefersDarkMode ? 'dark' : 'light',
+          mode: prefersDarkMode ? 'light' : 'light',
         },
       }),
     [prefersDarkMode],

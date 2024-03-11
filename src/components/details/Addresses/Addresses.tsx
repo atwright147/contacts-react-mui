@@ -9,7 +9,7 @@ interface Props {
 
 export const Addresses: FC<Props> = ({ addresses }): JSX.Element => {
   return (
-    <ul className={styles.list}>
+    <ul className={styles.unlistHorizontal}>
       {addresses?.map((address) => {
         const preparedAddress = [address.address1, address.address2, address.address3, address.city, address.county, address.postCode].join(
           ',\n',
@@ -18,7 +18,7 @@ export const Addresses: FC<Props> = ({ addresses }): JSX.Element => {
         return (
           <li key={address.address1}>
             <div className={styles.address}>{preparedAddress}</div>
-            {!!address.isPrimary && <Chip label="Primary" color="primary" />}
+            {!!address.isPrimary && <Chip label="Primary" color="primary" size="small" />}
           </li>
         );
       })}

@@ -2,10 +2,10 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import ky from 'ky';
 import { ReactNode, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { useContact } from '../../queries/contact.query';
 import { useContacts } from '../../queries/contacts.query';
-
-import { useContactsStore } from '../../stores/contacts.store';
 import { useModalsStore } from '../../stores/modals.store';
 
 interface Props {
@@ -13,9 +13,9 @@ interface Props {
 }
 
 export function ButtonMenu({ children }: Props): JSX.Element {
+  const { id } = useParams();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const selectedId = useContactsStore((store) => store.selectedId);
-  const { data: selected, refetch: refetchSelectedContact } = useContact(selectedId as number);
+  const { data: selected, refetch: refetchSelectedContact } = useContact(Number(id));
   const { refetch: refetchContacts } = useContacts();
   const open = !!anchorEl;
   const setContactEdit = useModalsStore((store) => store.setContactsEdit);

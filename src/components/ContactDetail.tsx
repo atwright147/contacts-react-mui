@@ -1,8 +1,8 @@
 import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, Typography } from '@mui/material';
 
+import { useParams } from 'react-router-dom';
 import { getInitials } from '../helpers/getInitials/getInitials';
 import { useContact } from '../queries/contact.query';
-import { useContactsStore } from '../stores/contacts.store';
 import { useModalsStore } from '../stores/modals.store';
 import { ContactsForm } from './ContactsForm';
 import { Favourite } from './Favourite/Favourite';
@@ -14,12 +14,12 @@ import { FormatDate } from './details/FormatDate/FormatDate';
 import { FormatString } from './details/FormatString/FormatString';
 
 export const ContactDetail = () => {
-  const selectedId = useContactsStore((store) => store.selectedId);
-  const { data: contact, isError, isLoading } = useContact(selectedId as number);
+  const { id } = useParams();
+  const { data: contact, isError, isLoading } = useContact(Number(id));
   const contactsEdit = useModalsStore((store) => store.contactsEdit);
   const setContactsEdit = useModalsStore((store) => store.setContactsEdit);
 
-  if (!selectedId) {
+  if (!id) {
     return <Box>Please select a contact</Box>;
   }
 

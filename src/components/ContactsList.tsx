@@ -1,34 +1,32 @@
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography } from '@mui/material';
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { getInitials } from '../helpers/getInitials/getInitials';
 import { useContacts } from '../queries/contacts.query';
-import { useContactsStore } from '../stores/contacts.store';
-import { Contact } from '../types/contact.types';
 import { Favourite } from './Favourite/Favourite';
 import { Loading } from './Loading';
 
 export const ContactsList = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const { data: contacts } = useContacts();
-  const selectedId = useContactsStore((store) => store.selectedId);
-  const setSelectedId = useContactsStore((store) => store.setSelectedId);
 
-  const favourites = contacts?.filter((contact) => contact.isFavourite) ?? [];
-  const nonFavourites = contacts?.filter((contact) => !contact.isFavourite) ?? [];
-
-  const [contactsToDisplay, setContactsToDisplay] = useState<Contact[]>([...favourites, ...nonFavourites]);
+  const handleContactClick = (id: number): void => {
+    navigate(`/contacts/${id}`);
+  };
 
   return (
     <Suspense fallback={<Loading />}>
       <Box>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.Box' }} dense>
-          {contactsToDisplay?.map((contact) => (
-            <ListItem key={contact.id}>
+          {contacts?.map((contact) => (
+            <ListItem key={contact.id} id={`contact-${contact.id}`}>
               <ListItemButton
                 alignItems="flex-start"
-                selected={selectedId === contact.id}
+                selected={Number(id) === contact.id}
                 component="button"
-                onClick={() => setSelectedId(contact.id)}
+                onClick={() => handleContactClick(contact.id)}
               >
                 <ListItemAvatar>
                   <Avatar
@@ -40,7 +38,9 @@ export const ContactsList = () => {
                 <ListItemText
                   primary={
                     <Stack direction="row" spacing={1} justifyContent="space-between">
-                      <Typography>{`${contact.firstName} ${contact.lastName}`}</Typography>
+                      <Typography>
+                        {`${contact.firstName} ${contact.lastName}`} {contact.id}
+                      </Typography>
                       <Favourite isFavourite={!!contact.isFavourite} />
                     </Stack>
                   }
