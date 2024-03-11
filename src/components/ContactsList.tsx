@@ -90,7 +90,7 @@ export const ContactsList = () => {
 
       <List dense>
         {contactsToDisplay?.map((contact) => (
-          <ListItem key={contact.id} id={`contact-${contact.id}`}>
+          <ListItem key={contact.id} id={`contact-${contact.id}`} sx={{ p: 0 }}>
             <ListItemButton
               alignItems="flex-start"
               selected={Number(id) === contact.id}
