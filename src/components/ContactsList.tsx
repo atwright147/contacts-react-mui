@@ -53,6 +53,7 @@ export const ContactsList = () => {
     <Box>
       <Stack direction="row">
         <TextField
+          autoComplete="off"
           fullWidth
           id="search"
           name="search"
