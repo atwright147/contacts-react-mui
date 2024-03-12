@@ -3,6 +3,9 @@ import TuneIcon from '@mui/icons-material/Tune';
 import {
   Avatar,
   Box,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   IconButton,
   List,
   ListItem,
@@ -10,6 +13,8 @@ import {
   ListItemButton,
   ListItemText,
   Popover,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -51,7 +56,7 @@ export const ContactsList = () => {
 
   return (
     <Box>
-      <Stack direction="row">
+      <Stack direction="row" spacing={1}>
         <TextField
           autoComplete="off"
           fullWidth
@@ -61,11 +66,10 @@ export const ContactsList = () => {
           size="small"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
+          InputProps={{
+            endAdornment: <SearchIcon />,
+          }}
         />
-
-        <IconButton aria-label="Search">
-          <SearchIcon />
-        </IconButton>
 
         <IconButton aria-label="Filters" type="button" onClick={handleClick}>
           <TuneIcon />
@@ -85,8 +89,35 @@ export const ContactsList = () => {
           vertical: 'top',
           horizontal: 'right',
         }}
+        sx={{
+          mt: 1,
+        }}
       >
-        The content of the Popover.
+        <Box sx={{ p: 2 }} component="section">
+          <Typography component="h1" variant="h5">
+            Filters
+          </Typography>
+
+          <Stack spacing={2}>
+            <FormControl>
+              <FormLabel id="view-label">View</FormLabel>
+              <RadioGroup aria-labelledby="view-label" defaultValue="all" name="view-filter">
+                <FormControlLabel value="all" control={<Radio />} label="All" />
+                <FormControlLabel value="favouries" control={<Radio />} label="Favourites" />
+                <FormControlLabel value="non-favourites" control={<Radio />} label="Non-favourites" />
+              </RadioGroup>
+            </FormControl>
+            <FormControl>
+              <FormLabel id="view-label">Gender</FormLabel>
+              <RadioGroup aria-labelledby="view-label" defaultValue="all" name="view-filter">
+                <FormControlLabel value="all" control={<Radio />} label="All" />
+                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                <FormControlLabel value="other" control={<Radio />} label="Other" />
+              </RadioGroup>
+            </FormControl>
+          </Stack>
+        </Box>
       </Popover>
 
       <List dense>
