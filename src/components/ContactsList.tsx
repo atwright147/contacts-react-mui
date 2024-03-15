@@ -1,124 +1,51 @@
-import SearchIcon from '@mui/icons-material/Search';
-import TuneIcon from '@mui/icons-material/Tune';
-import {
-  Avatar,
-  Box,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Popover,
-  Radio,
-  RadioGroup,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { useMemo, useState } from 'react';
+import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, Typography } from '@mui/material';
+import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { getInitials } from '../helpers/getInitials/getInitials';
 import { useContacts } from '../queries/contacts.query';
+import { useContactsStore } from '../stores/contacts.store';
+import { Contact } from '../types/contact.types';
+import { ContactListSearchBar } from './ContactListSearchBar';
 import { Favourite } from './Favourite/Favourite';
 
 export const ContactsList = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: contacts } = useContacts();
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const [search, setSearch] = useState('');
+  const { searchForm } = useContactsStore((store) => ({ searchForm: store.searchForm }));
 
   const contactsToDisplay = useMemo(() => {
-    if (search) {
-      return contacts?.filter((contact) => `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(search.toLowerCase()));
+    let filteredContacts = contacts;
+
+    if (searchForm.search) {
+      filteredContacts = filteredContacts?.filter((contact) =>
+        `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(searchForm.search.toLowerCase()),
+      );
     }
-    return contacts;
-  }, [search, contacts]);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    if (searchForm.view === 'favourites') {
+      filteredContacts = filteredContacts?.filter((contact) => contact.isFavourite);
+    }
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    if (searchForm.view === 'non-favourites') {
+      filteredContacts = filteredContacts?.filter((contact) => !contact.isFavourite);
+    }
+
+    if (searchForm.gender !== 'all') {
+      filteredContacts = filteredContacts?.filter((contact) => contact.gender === searchForm.gender);
+    }
+
+    return filteredContacts;
+  }, [searchForm, contacts]);
+
   const handleContactClick = (id: number): void => {
     navigate(`/contacts/${id}`);
   };
 
-  const open = Boolean(anchorEl);
-  const popoverId = open ? 'simple-popover' : undefined;
-
   return (
     <Box>
-      <Stack direction="row" spacing={1}>
-        <TextField
-          autoComplete="off"
-          fullWidth
-          id="search"
-          name="search"
-          label="Search"
-          size="small"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-          InputProps={{
-            endAdornment: <SearchIcon />,
-          }}
-        />
-
-        <IconButton aria-label="Filters" type="button" onClick={handleClick}>
-          <TuneIcon />
-        </IconButton>
-      </Stack>
-
-      <Popover
-        id={popoverId}
-        open={open}
-        onClose={handleClose}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        sx={{
-          mt: 1,
-        }}
-      >
-        <Box sx={{ p: 2 }} component="section">
-          <Typography component="h1" variant="h5">
-            Filters
-          </Typography>
-
-          <Stack spacing={2}>
-            <FormControl>
-              <FormLabel id="view-label">View</FormLabel>
-              <RadioGroup aria-labelledby="view-label" defaultValue="all" name="view-filter">
-                <FormControlLabel value="all" control={<Radio />} label="All" />
-                <FormControlLabel value="favouries" control={<Radio />} label="Favourites" />
-                <FormControlLabel value="non-favourites" control={<Radio />} label="Non-favourites" />
-              </RadioGroup>
-            </FormControl>
-            <FormControl>
-              <FormLabel id="view-label">Gender</FormLabel>
-              <RadioGroup aria-labelledby="view-label" defaultValue="all" name="view-filter">
-                <FormControlLabel value="all" control={<Radio />} label="All" />
-                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                <FormControlLabel value="male" control={<Radio />} label="Male" />
-                <FormControlLabel value="other" control={<Radio />} label="Other" />
-              </RadioGroup>
-            </FormControl>
-          </Stack>
-        </Box>
-      </Popover>
+      <ContactListSearchBar />
 
       <List dense>
         {contactsToDisplay?.map((contact) => (
