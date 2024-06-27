@@ -5,6 +5,8 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 import { Contact } from '../types/contact.types';
 
+type ContactWithDateOfBirth = Contact & { birthdayDate: dayjs.Dayjs; isSameOrAfter: boolean; isSameOrBefore: boolean };
+
 const API_URL = 'http://localhost:3001';
 
 dayjs.extend(isSameOrAfter);
@@ -21,6 +23,11 @@ const getBirthdays = async () => {
     isSameOrAfter: dayjs(dayjs(contact.dateOfBirth).set('year', thisYear)).isSameOrAfter(dayjs(), 'day'),
     isSameOrBefore: dayjs(dayjs(contact.dateOfBirth).set('year', thisYear)).isSameOrBefore(dayjs(), 'day'),
   }));
+
+  // sort by date
+  processed
+    ?.filter((contact: ContactWithDateOfBirth) => contact.isSameOrAfter)
+    .sort((a: ContactWithDateOfBirth, b: ContactWithDateOfBirth) => (a.birthdayDate.toISOString() < b.birthdayDate.toISOString() ? -1 : 1));
 
   return processed;
 };
